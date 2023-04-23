@@ -24,7 +24,7 @@ export default function Home() {
   console.log(qrData, "the QR code data from state");
 
   // split the string by commas
-  const stringParts = qrData?.split(",");
+  const stringParts = qrData?.split("o0o");
 
   // create an object and assign the values
   const objData = {
@@ -33,7 +33,10 @@ export default function Home() {
     hospital: stringParts[2],
     date: stringParts[3],
     time: stringParts[4],
-    status: stringParts[5],
+    complaint: stringParts[5],
+    gender: stringParts[6],
+    address: stringParts[7],
+    status: stringParts[8],
   };
 
   return (
@@ -45,12 +48,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <section className="flex flex-col items-center justify-start bg-[#00444d] text-white text-3xl sm:bg-center w-full min-h-screen xl:gap-10 lg:pt-8">
+        <section className="flex flex-col items-center justify-start bg-[#00444d] text-white text:lg sm:text-3xl w-full min-h-screen gap-5">
           {/* scanner container div, holds camera feed */}
           <div
             id="scanner-container"
             playsInline
-            className="w-full h-[50vh] p-6"
+            className="w-full sm:h-[100vh] p-6"
           >
             {/* camera feed */}
             <QrReader
@@ -62,7 +65,7 @@ export default function Home() {
             />
           </div>
           <Link
-            className="text-[#00444d] w-1/2 sm:w-1/4 rounded-lg bg-white h-16 sm:h-20 flex flex-row items-center justify-center font-semibold"
+            className="text-[#00444d] w-1/3 sm:w-1/4 rounded-lg bg-white h-10 sm:h-20 flex flex-row items-center justify-center font-semibold"
             href={"/"}
             onClick={() => stopScanner()}
           >
@@ -72,7 +75,7 @@ export default function Home() {
           {qrData === "" ? (
             ""
           ) : (
-            <div className="w-[90%] bg-white p-4 text-black flex flex-col items-start rounded-lg justify-center text-xl">
+            <div className="w-[90%] bg-white p-4 text-black flex flex-col gap-4 items-start rounded-lg justify-center text-sm sm:text-xl">
               <div
                 style={{
                   display: "flex",
@@ -97,8 +100,22 @@ export default function Home() {
                   <b>Appointment Time:</b> {objData?.time}
                 </h1>
                 <h1>
+                  <b>Complaint:</b> {objData?.complaint}
+                </h1>
+                <h1>
+                  <b>Gender:</b> {objData?.gender}
+                </h1>
+                <h1>
+                  <b>Address:</b> {objData?.address}
+                </h1>
+                <h1>
                   <b>Appointment Status:</b> {objData?.status}
                 </h1>
+              </div>
+              <div className="w-full flex flex-row items-center justify-center">
+                <button className="bg-[#00444d] text-white w-1/2 sm:w-1/4 h-10 sm:h-16 rounded-lg">
+                  view more
+                </button>
               </div>
             </div>
           )}
